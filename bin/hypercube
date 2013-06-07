@@ -6,7 +6,7 @@ require 'hypercube'
 
 manager = Hypercube::Manager.new
 
-result = manager.send ARGV
+result = manager.run ARGV
 
 puts result
 
