@@ -6,7 +6,7 @@ describe Hypercube::Manager do
   let(:vm){ 'bobbyzzz' }
 
   it 'finds its ass with two hands' do
-    manager.backend.should == Hypercube::Backend::VirtualBox
+    expect(manager.backend).to be Hypercube::Backend::VirtualBox
   end
 
   it 'basic vm lifecycles' do
@@ -15,8 +15,8 @@ describe Hypercube::Manager do
     manager.run ['destroy', vm]
     destroy_list = manager.run 'list'
 
-    create_list.should =~ /#{vm}/
-    destroy_list.should_not =~ /#{vm}/
+    expect(create_list).to match /#{vm}/
+    expect(destroy_list).not_to match /#{vm}/
   end
 
   context 'with vm' do
@@ -32,17 +32,21 @@ describe Hypercube::Manager do
       subject(:info){ manager.run ['info', vm] }
 
       it 'displays info' do
-        info.should =~ /#{vm}/
+        expect(info).to match /#{vm}/
       end
 
-      xit 'displays hd info' do
+      it 'displays hd info' do
+        pending "not implemented"
+        raise NotImplementedError
+        manager.run ['set', vm]
       end
     end
 
     context 'modify vm' do
       it 'sets hard drives' do
-        #mananger.run ['set', vm]
-        binding.pry
+        pending "not implemented"
+        raise NotImplementedError
+        manager.run ['set', vm]
       end
     end
   end
