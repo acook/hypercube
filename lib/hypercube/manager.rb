@@ -9,8 +9,10 @@ module Hypercube
     end
 
     def run args
-      help if args.first.nil? || args.first == "--help"
-      backend.run *args
+      args = Array(args).flatten
+      help  if args.first.nil? || args.first == "--help"
+      debug if args.first == "--debug"
+      backend.run args
     end
 
     def help
@@ -23,6 +25,12 @@ Basic Commands: #{
   backend.commands.join ', '
 }
       HELP
+      exit 0
+    end
+
+    def debug
+      require 'pry'
+      binding.pry
       exit 0
     end
 

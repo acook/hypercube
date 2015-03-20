@@ -3,15 +3,15 @@ module Hypercube
     module VirtualBox
       module_function
 
-      def run *command
-        command = command.flatten
-
+      def run command
         if command.first == 'set' then
           _, vm, attribute, value = command
           command = ["#{attribute}=", vm, value]
         end
 
-        raise NotImplementedError unless commands.include? command
+        method = command.first.to_sym
+
+        raise NotImplementedError unless commands.include? method
 
         status, stdout, stderr = systemu [executable, Commands.send(*command)].join(' ')
 

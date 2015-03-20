@@ -10,9 +10,9 @@ describe Hypercube::Manager do
   end
 
   it 'basic vm lifecycles' do
-    manager.run ['create', vm]
+    manager.run [:create, vm]
     create_list = manager.run 'list'
-    manager.run ['destroy', vm]
+    manager.run [:destroy, vm]
     destroy_list = manager.run 'list'
 
     expect(create_list).to match /#{vm}/
@@ -21,11 +21,11 @@ describe Hypercube::Manager do
 
   context 'with vm' do
     before do
-      manager.run ['create', vm]
+      manager.run [:create, vm]
     end
 
     after do
-      manager.run ['destroy', vm]
+      manager.run [:destroy, vm]
     end
 
     context 'vm info' do
@@ -37,7 +37,6 @@ describe Hypercube::Manager do
 
       it 'displays hd info' do
         pending "not implemented"
-        raise NotImplementedError
         manager.run ['set', vm]
       end
     end
@@ -45,7 +44,6 @@ describe Hypercube::Manager do
     context 'modify vm' do
       it 'sets hard drives' do
         pending "not implemented"
-        raise NotImplementedError
         manager.run ['set', vm]
       end
     end
