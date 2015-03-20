@@ -11,21 +11,25 @@ module Hypercube
           command = ["#{attribute}=", vm, value]
         end
 
-        #raise NotImplementedError unless Commands.instance_methods(false).include?(command)
+        raise NotImplementedError unless commands.include? command
 
         status, stdout, stderr = systemu [executable, Commands.send(*command)].join(' ')
 
         raise stderr unless status.exitstatus == 0
 
         $last_status = status.exitstatus
-        $last_out = stdout
-        $last_error = stderr
+        $last_out    = stdout
+        $last_error  = stderr
 
         stdout
       end
 
       def executable
         'VBoxManage'
+      end
+
+      def commands
+        Commands.methods false
       end
 
       module Commands

@@ -8,8 +8,22 @@ module Hypercube
       get_backend @backend
     end
 
-    def run *args
+    def run args
+      help if args.first.nil? || args.first == "--help"
       backend.run *args
+    end
+
+    def help
+      puts <<-HELP
+HYPERCUBE: A virtual machine manager that doesn't suck!
+Available Backends: #{
+  backend_path('.').children(false).map{|f|f.basename '.*'}.join(', ')
+}
+Basic Commands: #{
+  backend.commands.join ', '
+}
+      HELP
+      exit 0
     end
 
     private
